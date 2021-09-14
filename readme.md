@@ -1,5 +1,10 @@
 # Local (Email/password) and social authentication with Laravel and Nuxt
 
+# Features
+
+- Local Laravel API authentication using JWT or token based (Sanctum)
+- Social login from client application (Nuxt)
+
 ## Setup
 
 Start off by cloning the repo. Make sure to switch branches if you want to have a different starting point.
