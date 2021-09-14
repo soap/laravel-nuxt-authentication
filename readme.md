@@ -1,15 +1,11 @@
 # Local (Email/password) and social authentication with Laravel and Nuxt
 
-Welcome, this repo contains the end result of the series [Authentication in Laravel and Nuxt](https://www.youtube.com/playlist?list=PLeZmuYT0mSPNmQie2QyoY-3hxQxDZwi22) and [social Authentication in Laravel and Nuxt](https://www.youtube.com/playlist?list=PLeZmuYT0mSPPeyIMa6oURCgpCMEd_sD_n)
-
-Please see the authentication branch if you're looking for the source code that belongs to Authentication in Laravel and Nuxt
-
 ## Setup
 
 Start off by cloning the repo. Make sure to switch branches if you want to have a different starting point.
 
 ```
-git clone https://github.com/fritsvt/laravel-nuxt-authentication.git
+git clone https://github.com/soap/laravel-nuxt-authentication.git
 ```
 
 Make sure you are in the main project folder:
@@ -18,7 +14,7 @@ Make sure you are in the main project folder:
 cd laravel-nuxt-authentication
 ```
 
-## server-side / API setup (Laravel)
+## Server-side / API setup (Laravel 7.0)
 
 Run:
 
@@ -109,7 +105,7 @@ or
 php artisan serve --port=8000
 ```
 
-## client-side / front-end setup (Nuxt.js):
+## Client-side / front-end setup (Nuxt.js):
 
 Now navigate to the client directory where the nuxt project is located.
 
