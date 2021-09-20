@@ -5,6 +5,15 @@
 - Local Laravel API authentication using JWT or token based (Sanctum)
 - Social login from client application (Nuxt)
 
+## Default configuration
+These configuration in .env.example will run for this setup.
+
+Laravel Backend Server domain: api.mydomain.test port: 8000
+Frontend Nuxt domain: app.mydomain.test port: 4000
+
+You can edit your DNS to include these domain. For Windows edit hosts file and run ipconfig /flushdns.
+Then you just configure Database part only, generate application key for Sanctum to work.
+
 ## Setup
 
 Start off by cloning the repo. Make sure to switch branches if you want to have a different starting point.
@@ -13,10 +22,10 @@ Start off by cloning the repo. Make sure to switch branches if you want to have 
 git clone https://github.com/soap/laravel-nuxt-authentication.git
 ```
 
-Make sure you are in the main project folder:
+Make sure you are in backend application folder:
 
 ```
-cd laravel-nuxt-authentication
+cd laravel-nuxt-authentication/laravel-backend
 ```
 
 ## Server-side / API setup (Laravel 7.0)
@@ -44,9 +53,8 @@ Generate the keys:
 
 ```
 php artisan key:generate
-php artisan jwt:secret
 ```
-
+To test Sanctum authentication only this is ok for backend if you use preset domains.
 Make sure the settings (client ids, secret keys, redirect URLs) for the social auth providers you want to use are set up correctly:
 
 ```
@@ -98,8 +106,8 @@ RETRIEVE_UNVERIFIED_SOCIAL_EMAIL=0
 IMPORTANT: Make sure that your .env file is updated with the right settings for APP_URL (for your back-end APIs) and CLIENT_BASE_URL (for your front-end / Nuxt). These values need to match what you will set in the client-side setup section.
 
 ```
-APP_URL=http://localhost:8000
-CLIENT_BASE_URL= http://localhost:3000
+APP_URL=http://mydomain.test:8000
+CLIENT_BASE_URL= http://app.mydomain.test:4000
 ```
 
 Finally, start the Laravel API server:
@@ -107,7 +115,7 @@ Finally, start the Laravel API server:
 ```
 php artisan serve
 or
-php artisan serve --port=8000
+php artisan serve --host api.mydomain.test --port=8000
 ```
 
 ## Client-side / front-end setup (Nuxt.js):
@@ -115,7 +123,7 @@ php artisan serve --port=8000
 Now navigate to the client directory where the nuxt project is located.
 
 ```
-cd client
+cd nuxt-frontend
 ```
 
 Now we're going to install the node modules.
@@ -131,11 +139,11 @@ This needs to be done in 2 places:
 
 ```
    env: {
-    baseUrl: process.env.BASE_URL || 'https://jwt-auth.test.com/api/'
+    baseUrl: process.env.BASE_URL || 'http://api.mydomain.test.com/'
    },
 ```
 
-Example: baseUrl: process.env.BASE_URL || 'http://localhost:8000/api/'
+Example: baseUrl: process.env.BASE_URL || 'http://api.mydomain.test:8000/'
 (dont forget the trailing slash)
 
 2. baseURL in the axios: {} section
@@ -146,11 +154,11 @@ Example: baseUrl: process.env.BASE_URL || 'http://localhost:8000/api/'
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
-    baseURL: 'http://jwt-auth.test/api'
+    baseURL: 'http://api.mydomain.test:8000'
   },
 ```
 
-Example: baseURL: "http://localhost:8000/api" (no trailing slash here)
+Example: baseURL: "http://api.mydomain.test:8000" (no trailing slash here)
 
 Finally, start the nuxt development server.
 
@@ -158,4 +166,4 @@ Finally, start the nuxt development server.
 npm run dev
 ```
 
-Now, navigate to the front-end URL displayed on the Nuxt terminal (default is http://localhost:3000) and click 'Register'. Click on the logo for the social auth service you have configured, and see the social authentication in action!
+Now, navigate to the front-end URL displayed on the Nuxt terminal (default is http://app.mydomain.test:4000) and click 'Register'. Click on the logo for the social auth service you have configured, and see the social authentication in action!
