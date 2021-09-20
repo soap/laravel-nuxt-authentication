@@ -32,7 +32,7 @@ class AuthController extends Controller
 
         return response([
             'user' => $user,
-            'token' => $token 
+            'access_token' => $token 
         ], 201);
     }
 
@@ -49,13 +49,6 @@ class AuthController extends Controller
         $user = User::where('email', $fields['email'])->first();
         
 
-        /*
-        if (! $user || ! Hash::check($fields['password'], $user->password)) {
-            return response([
-                'errors' => ['password' => 'Bad credentials provided']
-            ], 401);
-        }
-        */
         if (!Auth::attempt($fields)) {
             return response('Bad credentials provided', 401);
         }
@@ -63,7 +56,8 @@ class AuthController extends Controller
         $token = $user->createToken('my-token')->plainTextToken;
 
         return response([
-            'token' => $token
+            'access_token ' => $token,
+            'user' => $user
         ], 200);
     }
 
@@ -81,10 +75,9 @@ class AuthController extends Controller
 
     public function me(Request $request)
     {
-        // using this for nuxtjs auth module, see your compiled nuxt/auth.js
-        return response(
-           $request->user(),
-        );
+        return response([
+           'user' => $request->user(),
+        ]);
     }
 
     public function loginedDevices()

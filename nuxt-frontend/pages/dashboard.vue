@@ -6,6 +6,7 @@
 </template>
 <script>
 export default {
+    name: 'dashboard',
     layout: 'authenticated',
     middleware: ['auth'],
     data() {

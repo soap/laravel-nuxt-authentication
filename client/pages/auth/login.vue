@@ -1,8 +1,8 @@
 <template>
     <div class="container">
-        <div class="col-md-6 offset-md-3 mt-4">
+        <div class="mt-4 col-md-6 offset-md-3">
 
-            <div v-if="error" class="alert alert-danger mb-2" role="alert">
+            <div v-if="error" class="mb-2 alert alert-danger" role="alert">
                 Your token appeared to be invalid. Please try again.
             </div>
 
@@ -59,8 +59,8 @@ export default {
         async login() {
             try {
                 await this.$auth.login({ data: this.form });
-            } catch(e) {
-                return;
+            } catch(error) {
+                
             }
             this.$router.push(this.$route.query.redirect ? this.$route.query.redirect : '/');
         }

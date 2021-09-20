@@ -17,16 +17,16 @@ use App\Http\Controllers\Api\v1\SocialAuthController;
 */
 
 // public api routes
-Route::prefix('v1')->middleware(['throttle:20,5'])->group( function() {
+Route::prefix('v1')->group( function() {
     Route::post('/auth/register', [AuthController::class, 'register']);
     Route::post('/auth/login', [AuthController::class, 'login']);
 
     Route::get('/auth/login/{provider}', [SocialAuthController::class, 'redirect']);
-    Route::get('/login/{provider}/callback', [SocialAuthController::class,'callback']);
+    Route::get('/auth/login/{provider}/callback', [SocialAuthController::class,'callback']);
 });
 
 Route::prefix('v1')->middleware(['auth:sanctum'])->group(function() {
-    Route::get('/auth/me', [AuthController::class, 'me']);
+    Route::get('/auth/user', [AuthController::class, 'me']);
 
     Route::get('/auth/logout', [AuthController::class, 'logout']);
 });

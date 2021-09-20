@@ -46,35 +46,32 @@ export default {
         strategies: {
             laravelSanctum: {
                 provider: 'laravel/sanctum',
-                url: 'http://mydomain.test:8000',
-                token: {
-                    property: 'token',
-                },
-                cookie: {
-                    //name: 'X-XSRF-TOKEN'
-                },
+                url: 'http://api.mydomain.test:8000',
                 endpoints: {
-                    login: { url: '/api/v1/auth/login', method: 'post' },
+                    login: { url: '/api/v1/auth/login', method: 'post', propertyName: 'access_token' },
                     logout: { url: '/api/v1/auth/logout', method: 'post' },
-                    user: {
-                        url: '/api/v1/auth/me',
-                        method: 'get',
-                        property: 'user',
-                    },
+                    user: { url: '/api/v1/auth/user', method: 'get', propertyName: 'user' },
                 },
             },
         },
+        redirect: {
+            login: '/auth/login'
+        }
     },
 
     axios: {
-        proxy: false,
-        withCredentials: true,
+        proxy: true,
+        credentials: true,
+        baseURL: 'http:/api.mydomain.test:8000',
     },
     proxy: {
-        '/laravel': {
-            target: process.env.API_BASE_URL,
-            pathRewrite: { '^/laravel': '/' },
-        },
+        // add /api/v1 to http://mydoamin.com:8000
+        'laravel': {
+            target: 'http://api.mydomain.com:8000',
+            pathRewite: {
+                '/laravel/': '/api/v1/'
+            }
+        }
     },
     // Build Configuration: https://go.nuxtjs.dev/config-build
     build: {},
