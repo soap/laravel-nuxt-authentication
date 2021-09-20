@@ -1,4 +1,4 @@
-# Local (Email/password) and social authentication with Laravel and Nuxt
+# Local (E-mail/password) and social authentication with Laravel and Nuxt
 
 # Features
 
@@ -6,6 +6,7 @@
 - Social login from client application (Nuxt)
 
 ## Default configuration
+
 These configuration in .env.example will run for this setup.
 
 Laravel Backend Server domain: api.mydomain.test port: 8000
